@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Venezio.net | Writer & Poet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark: #080810;
+      --glass: rgba(255,255,255,0.05);
+      --glass-border: rgba(255,255,255,0.1);
+      --neon-pink: #ff2d78;
+      --neon-cyan: #00f5ff;
+      --neon-purple: #bf00ff;
+      --light: #f0f0f0;
+      --muted: #888;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--light);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* GLOSSY BACKGROUND */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -30%;
+      left: -20%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(191,0,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -20%;
+      right: -20%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(circle, rgba(0,245,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(8,8,16,0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    nav .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      text-decoration: none;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.88rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+    }
+
+    nav ul a:hover { color: var(--neon-cyan); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 5% 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 10px rgba(0,245,255,0.5);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    .hero h1 .neon-word {
+      background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(255,45,120,0.4));
+      font-style: italic;
+    }
+
+    .hero p {
+      max-width: 500px;
+      color: #aaa;
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* GLASS BUTTON */
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      background: var(--glass);
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      text-decoration: none;
+      font-size: 0.88rem;
+      letter-spacing: 1px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+      text-shadow: 0 0 8px rgba(0,245,255,0.5);
+      box-shadow: 0 0 15px rgba(0,245,255,0.1), inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .btn:hover {
+      background: rgba(0,245,255,0.1);
+      box-shadow: 0 0 25px rgba(0,245,255,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
+
+    /* GLASS CARD */
+    .glass-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+      border-color: rgba(0,245,255,0.3);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 5%;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 8px rgba(0,245,255,0.4);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 2.5rem;
+      line-height: 1.2;
+    }
+
+    h2 .neon-pink {
+      background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(255,45,120,0.35));
+      font-style: italic;
+    }
+
+    h2 .neon-cyan {
+      background: linear-gradient(135deg, var(--neon-cyan), #00aaff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(0,245,255,0.35));
+    }
+
+    .divider {
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+      margin-bottom: 2rem;
+      border-radius: 2px;
+      box-shadow: 0 0 8px rgba(0,245,255,0.4);
+    }
+
+    /* ABOUT */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: #bbb;
+      margin-bottom: 1rem;
+      font-size: 0.97rem;
+    }
+
+    .about-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .stat {
+      padding: 1.5rem 2rem;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      padding: 2.5rem;
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .service-card p {
+      color: #999;
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+
+    /* PORTFOLIO */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .work-card { overflow: hidden; }
+
+    .work-card-header {
+      padding: 2rem;
+      border-bottom: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .work-type {
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 6px rgba(0,245,255,0.4);
+    }
+
+    .work-card-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .work-body { padding: 2rem; }
+
+    .poem-lines {
+      color: #aaa;
+      font-size: 0.9rem;
+      font-style: italic;
+      line-height: 1.9;
+      border-left: 2px solid rgba(0,245,255,0.3);
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .work-body p {
+      color: #aaa;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 0.75rem;
+    }
+
+    .hidden { display: none; }
+
+    .read-more {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: var(--neon-cyan);
+      font-size: 0.82rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      letter-spacing: 0.5px;
+      text-shadow: 0 0 6px rgba(0,245,255,0.4);
+      transition: opacity 0.2s;
+    }
+
+    .read-more:hover { opacity: 0.7; }
+
+    /* CONTACT */
+    #contact { text-align: center; }
+
+    #contact > p {
+      color: #aaa;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      font-size: 0.97rem;
+    }
+
+    .contact-form {
+      max-width: 540px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .form-group { margin-bottom: 1.4rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--light);
+      padding: 0.9rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.93rem;
+      border-radius: 10px;
+      outline: none;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 12px rgba(0,245,255,0.15);
+    }
+
+    .form-group textarea { height: 130px; resize: vertical; }
+
+    .btn-full { width: 100%; text-align: center; cursor: pointer; font-family: 'Inter', sans-serif; border-radius: 50px; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2.5rem 5%;
+      border-top: 1px solid var(--glass-border);
+      color: var(--muted);
+      font-size: 0.82rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .neon-text {
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      #about { grid-template-columns: 1fr; gap: 2.5rem; }
+      nav ul { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Venezio</a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-tag">✦ Poet &amp; Storyteller ✦</p>
+    <h1>Words that <span class="neon-word">move</span><br/>people.</h1>
+    <p>Crafting poetry and short stories that stir emotion, spark imagination, and leave a lasting impression.</p>
+    <a href="#portfolio" class="btn">Read My Work</a>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-text">
+      <p class="section-label">About Me</p>
+      <h2>A writer who lives in the space between <span class="neon-pink">emotion</span> and language.</h2>
+      <div class="divider"></div>
+      <p>I'm Venezio — a freelance poet and short story writer with a passion for narratives that feel alive. I believe every word should earn its place on the page.</p>
+      <p>Whether it's a poem that captures a fleeting feeling or a story that keeps you on the edge of your seat, I write with intention, depth, and heart.</p>
+      <br/>
+      <a href="#contact" class="btn">Work With Me</a>
+    </div>
+    <div class="about-stats">
+      <div class="glass-card stat">
+        <div class="stat-number">Poetry</div>
+        <div class="stat-label">Lyrical, emotive, vivid verse</div>
+      </div>
+      <div class="glass-card stat">
+        <div class="stat-number">Stories</div>
+        <div class="stat-label">Gripping short-form narratives</div>
+      </div>
+      <div class="glass-card stat">
+        <div class="stat-number">Custom</div>
+        <div class="stat-label">Written pieces for any occasion</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <p class="section-label">What I Offer</p>
+    <h2><span class="neon-cyan">Services</span></h2>
+    <div class="services-grid">
+      <div class="glass-card service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Poetry Writing</h3>
+        <p>Custom poems for weddings, memorials, brands, or personal expression. Every piece is uniquely crafted to capture your vision and emotion.</p>
+      </div>
+      <div class="glass-card service-card">
+        <div class="service-icon">📖</div>
+        <h3>Short Stories</h3>
+        <p>Compelling short-form fiction — from thrillers to slice-of-life. Stories with real tension, vivid characters, and satisfying endings.</p>
+      </div>
+      <div class="glass-card service-card">
+        <div class="service-icon">✍️</div>
+        <h3>Ghost Writing</h3>
+        <p>Your story, your voice — written by me. I ghostwrite poems and stories so you get the final piece as your own.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <p class="section-label">Portfolio</p>
+    <h2>Selected <span class="neon-pink">Work</span></h2>
+    <div class="portfolio-grid">
+
+      <!-- POEM -->
+      <div class="glass-card work-card">
+        <div class="work-card-header">
+          <p class="work-type">Poetry</p>
+          <h3>I Am the River</h3>
+        </div>
+        <div class="work-body">
+          <div class="poem-lines">
+            I am the river, winding, restless, free,<br/>
+            I carry whispers of all who've touched me.<br/>
+            Feet that danced, hands that knelt,<br/>
+            Dreams that floated, hearts that felt.
+          </div>
+          <div id="poem-more" class="hidden">
+            <div class="poem-lines">
+              I have known laughter, and sorrow too,<br/>
+              Silent tears and voices that flew.<br/>
+              Children who skipped stones across my face,<br/>
+              Lovers who lingered in my gentle embrace.<br/><br/>
+              I remember the carts, the horses, the boats,<br/>
+              The fishermen's tales, the poets' notes.<br/>
+              Seasons have painted me green, gold, and gray,<br/>
+              Yet all who have crossed me have drifted away.<br/><br/>
+              Still I flow, never still, never done,<br/>
+              Reflecting the sun, the moon, every one.<br/>
+              I hold their stories, their joy, their strife—<br/>
+              I am the river, the witness of life.
+            </div>
+          </div>
+          <button class="read-more" onclick="togglePoem(this)">Read full poem ↓</button>
+        </div>
+      </div>
+
+      <!-- STORY -->
+      <div class="glass-card work-card">
+        <div class="work-card-header">
+          <p class="work-type">Short Story</p>
+          <h3>The Diary's Warning</h3>
+        </div>
+        <div class="work-body">
+          <p>Alex found an old diary in the attic. Its pages predicted small events in town — but the last entry made their stomach drop: <em>"On the third Friday of April, at the old bridge by Miller's Creek, disaster will strike."</em></p>
+          <div id="story-more" class="hidden">
+            <p>The date was tomorrow. No one believed Alex, so they went alone. That night, flashlight in hand, they crept to the bridge. A rotten support loomed beneath, barely holding.</p>
+            <p>Heart hammering, Alex reinforced it with rope and spare planks — but just as they finished, a delivery truck rumbled toward the bridge. The wood groaned and cracked. Alex froze.</p>
+            <p>With one last desperate shove, they tightened the rope — and the truck crossed, shaking the bridge but leaving it intact. Alex collapsed, trembling. They had saved the day, but barely.</p>
+            <p>As they returned the diary to the attic, Alex realized some warnings weren't meant to be ignored… and some thrills weren't meant to be survived without a fight.</p>
+          </div>
+          <button class="read-more" onclick="toggleStory(this)">Read full story ↓</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Get In Touch</p>
+    <h2>Let's create something <span class="neon-pink">together.</span></h2>
+    <p>Have a project in mind? Whether it's a custom poem, a short story, or something entirely unique — I'd love to hear about it.</p>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Jane Smith" required/>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="jane@example.com" required/>
+      </div>
+      <div class="form-group">
+        <label>Your Message</label>
+        <textarea placeholder="Tell me about your project..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-full">Send Message</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span class="neon-text">Venezio</span>. All rights reserved. Crafted with words &amp; intention.</p>
+  </footer>
+
+  <script>
+    function togglePoem(btn) {
+      const more = document.getElementById('poem-more');
+      if (more.classList.contains('hidden')) {
+        more.classList.remove('hidden');
+        btn.textContent = 'Show less ↑';
+      } else {
+        more.classList.add('hidden');
+        btn.textContent = 'Read full poem ↓';
+      }
+    }
+
+    function toggleStory(btn) {
+      const more = document.getElementById('story-more');
+      if (more.classList.contains('hidden')) {
+        more.classList.remove('hidden');
+        btn.textContent = 'Show less ↑';
+      } else {
+        more.classList.add('hidden');
+        btn.textContent = 'Read full story ↓';
+      }
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type=submit]');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = 'rgba(0,245,255,0.15)';
+      btn.style.boxShadow = '0 0 20px rgba(0,245,255,0.3)';
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.style.boxShadow = '';
+      }, 3000);
+    }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.glass-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
